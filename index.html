@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111827" />
+  <title>FocusFlow — Your Personal Productivity Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">✦</span><span>FocusFlow<span class="brand-dot">.</span></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-links">
+        <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+        <a class="nav-link" href="#tasks"><span>✓</span> My tasks</a>
+        <a class="nav-link" href="#skills"><span>◈</span> Skill tracker</a>
+        <a class="nav-link" href="#focus"><span>◷</span> Focus room</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-card">
+          <div class="sparkle">✧</div>
+          <p class="sidebar-card-title">Small steps.<br>Big futures.</p>
+          <p class="sidebar-card-copy">Your next opportunity starts with what you do today.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">Y</div>
+          <div><strong>Your workspace</strong><small>Student account</small></div>
+          <span class="more">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">✦</span> FocusFlow<span class="brand-dot">.</span></div>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="topbar-right"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Toggle dark mode">☾ <span>Dark mode</span></button><span class="live-dot"></span><span id="todayLabel">Your day, your pace</span><div class="top-avatar">Y</div></div>
+      </header>
+
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow" id="dateLabel">MONDAY, NOVEMBER 9</p>
+          <h1>Make today <span>count.</span></h1>
+          <p class="welcome-copy">A little progress every day adds up to something amazing.</p>
+        </div>
+        <div class="streak-card"><div class="streak-icon">✦</div><div><strong id="streakNumber">0 day</strong><small>Keep your momentum</small></div></div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Tasks completed</span><span class="stat-icon purple">✓</span></div><strong id="completedStat">0</strong><small><span class="positive">Your progress</span> starts here</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Tasks remaining</span><span class="stat-icon blue">◷</span></div><strong id="remainingStat">0</strong><small>One thing at a time</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Skills in progress</span><span class="stat-icon orange">↗</span></div><strong id="skillsStat">0</strong><small>Build your future toolkit</small></article>
+        <article class="stat-card highlight-stat"><div class="stat-top"><span>Weekly completion</span><span class="stat-icon green">✧</span></div><strong id="weeklyStat">0%</strong><div class="mini-progress"><span id="weeklyBar"></span></div></article>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel tasks-panel" id="tasks">
+          <div class="panel-heading"><div><p class="eyebrow">STAY ON TRACK</p><h2>Today's tasks</h2></div><button class="primary-btn" id="openTaskBtn">＋ Add task</button></div>
+          <div class="task-filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="active">In progress</button><button class="filter" data-filter="done">Completed</button></div>
+          <div id="taskList" class="task-list"></div>
+          <div id="emptyTasks" class="empty-state"><div>✧</div><strong>Your list is a blank canvas.</strong><span>Add a task and make your first move.</span></div>
+        </section>
+
+        <section class="panel focus-panel" id="focus">
+          <div class="panel-heading"><div><p class="eyebrow">DEEP WORK</p><h2>Focus room</h2></div><span class="focus-badge">✦ FOCUS MODE</span></div>
+          <p class="focus-intro">Give one thing your full attention. You’ve got this.</p>
+          <div class="timer-wrap">
+            <svg class="timer-ring" viewBox="0 0 220 220" aria-hidden="true"><circle class="ring-track" cx="110" cy="110" r="96"></circle><circle class="ring-progress" id="timerProgress" cx="110" cy="110" r="96"></circle></svg>
+            <div class="timer-center"><span id="timerMode">FOCUS SESSION</span><strong id="timerDisplay">25:00</strong><small id="timerHint">One step at a time</small></div>
+          </div>
+          <div class="timer-presets"><button class="preset active" data-minutes="25">25 min</button><button class="preset" data-minutes="15">15 min</button><button class="preset" data-minutes="5">5 min</button></div>
+          <div class="custom-timer">
+            <label for="customMinutes">Custom minutes</label>
+            <input id="customMinutes" type="number" min="1" max="180" value="25" />
+            <button class="custom-set" id="setCustomTimer" type="button">Set</button>
+          </div>
+          <div class="break-row">
+            <label for="breakMinutes">Break length</label>
+            <input id="breakMinutes" type="number" min="1" max="60" value="5" />
+            <button class="break-btn" id="startBreak" type="button">Start break</button>
+          </div>
+          <div class="timer-actions"><button class="primary-btn timer-start" id="startTimer">Start focus</button><button class="icon-btn" id="resetTimer" title="Reset timer">↺</button></div>
+        </section>
+
+        <section class="panel skills-panel" id="skills">
+          <div class="panel-heading"><div><p class="eyebrow">LEVEL UP</p><h2>Your skill tracker</h2></div><button class="text-btn" id="addSkillBtn">＋ Add skill</button></div>
+          <div id="skillList" class="skill-list"></div>
+          <div id="emptySkills" class="empty-state compact"><div>◈</div><strong>What are you learning?</strong><span>Add a skill to track your growth.</span></div>
+        </section>
+
+        <section class="quote-panel">
+          <div class="quote-mark">“</div>
+          <blockquote>You don't have to see the whole staircase. Just take the first step.</blockquote>
+          <div class="quote-footer"><span></span> A reminder for your journey</div>
+          <div class="quote-decoration">✳</div>
+        </section>
+      </div>
+      <footer>Made for your next big thing <span>✦</span> <small>FocusFlow · Your personal growth space</small></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="taskModal">
+    <form class="modal" id="taskForm">
+      <button type="button" class="modal-close" data-close="taskModal">×</button>
+      <p class="eyebrow">MAKE IT HAPPEN</p><h2>Add a task</h2><p class="modal-copy">Big goals become easier when you break them down.</p>
+      <label for="taskInput">Task name</label><input id="taskInput" maxlength="70" placeholder="e.g. Practice JavaScript arrays" required>
+      <label for="taskPriority">Priority</label><select id="taskPriority"><option value="Medium">Medium</option><option value="High">High</option><option value="Low">Low</option></select>
+      <button class="primary-btn modal-submit" type="submit">Add to my list <span>→</span></button>
+    </form>
+  </div>
+
+  <div class="modal-backdrop" id="skillModal">
+    <form class="modal" id="skillForm">
+      <button type="button" class="modal-close" data-close="skillModal">×</button>
+      <p class="eyebrow">INVEST IN YOURSELF</p><h2>Track a skill</h2><p class="modal-copy">Every expert was once a beginner.</p>
+      <label for="skillInput">Skill name</label><input id="skillInput" maxlength="35" placeholder="e.g. Python" required>
+      <label for="skillLevel">Current progress <span id="skillLevelValue">25%</span></label><input id="skillLevel" type="range" min="0" max="100" value="25">
+      <button class="primary-btn modal-submit" type="submit">Add skill <span>→</span></button>
+    </form>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
